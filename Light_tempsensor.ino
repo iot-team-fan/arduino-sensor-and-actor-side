@@ -6,14 +6,16 @@ Servo myservo;
 
 int windowOpen = 50;
 int windowClose = 51;
+int motorCtrl = 10;
 
 
 void setup() {
   Serial.begin(9600);
   pinMode(8, OUTPUT);
   pinMode(7, OUTPUT);
+  pinMode(motorCtrl,OUTPUT);
   analogReference(INTERNAL);
-  myservo.attach(9);
+  myservo.attach(5);
   
 }
 
@@ -41,20 +43,22 @@ void loop() {
 {
    
   digitalWrite(7, HIGH);
+  digitalWrite(motorCtrl, HIGH);
   if(myservo.read() != 180)
   {
     myservo.write(180);
-    Serial.println("Window has been opened.");
+    Serial.println("degree = 180");
    }
 }
 
- if(sensorValue0 < 28)
+ if(sensorValue0 < 28) //turn off light when temp sensor is below 28C
 {
   digitalWrite(7, LOW);
+  digitalWrite(motorCtrl, LOW);
   if(myservo.read() != 100)
   {
     myservo.write(100);
-    Serial.println("Window has been closed.");
+    Serial.println("degree = 100");
    }
 }
 
